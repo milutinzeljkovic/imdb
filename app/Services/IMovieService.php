@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Services;
-use App\Movie;
 
 interface IMovieService 
 {
     function addMovie($movie);
+    function deleteMovie($movie);
+    function updateMovie($movie,$values);
 }

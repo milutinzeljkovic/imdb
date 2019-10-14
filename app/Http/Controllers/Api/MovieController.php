@@ -37,7 +37,7 @@ class MovieController extends Controller
      */
     public function store(MovieStoreRequest $request)
     {
-        $movie = Movie::create($request->validated());
+        $movie = $this->_movieService->addMovie($request->validated());
         return $movie;
     }
 
@@ -59,9 +59,10 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MovieStoreRequest $request, Movie $movie)
     {
-        //
+        $values = $request->validated();
+        return $this->_movieService->updateMovie($movie,$values);
     }
 
     /**
@@ -70,8 +71,8 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Movie $movie)
     {
-        //
+        return $this->_movieService->deleteMovie($movie);
     }
 }

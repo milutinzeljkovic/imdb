@@ -28,9 +28,9 @@ class MoviePolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user,Movie $movie)
     {
-        //
+        
     }
 
     /**
@@ -42,7 +42,7 @@ class MoviePolicy
      */
     public function update(User $user, Movie $movie)
     {
-        //
+        return $user->id === $movie->user_id;
     }
 
     /**
@@ -54,7 +54,7 @@ class MoviePolicy
      */
     public function delete(User $user, Movie $movie)
     {
-        //
+        return $user->id === $movie->user_id;
     }
 
     /**

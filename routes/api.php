@@ -28,6 +28,8 @@ Route::group(['middleware' => ['jwt.verify'],'prefix' => 'movies'], function () 
     Route::get('', 'Api\MovieController@index');
     Route::get('{movie}', 'Api\MovieController@show')->middleware('can:view,movie');
     Route::post('add', 'Api\MovieController@store');
+    Route::put('{movie}','Api\MovieController@update')->middleware('can:update,movie');
+    Route::delete('{movie}', 'Api\MovieController@destroy')->middleware('can:delete,movie');
 
 });
 
