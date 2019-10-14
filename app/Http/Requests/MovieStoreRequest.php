@@ -27,7 +27,7 @@ class MovieStoreRequest extends FormRequest
             'title' => 'required',
             'description' => 'required',
             'image_url' => 'required',
-            'genre_id' => 'required'
+            'genre_id' => 'exists:genres,id'
         ];
     }
 }

@@ -37,8 +37,8 @@ class MovieController extends Controller
      */
     public function store(MovieStoreRequest $request)
     {
-        $movie = $this->_movieService->addMovie($request->validated());
-        return $movie;
+        return $this->_movieService->addMovie($request->validated());
+       
     }
 
     /**

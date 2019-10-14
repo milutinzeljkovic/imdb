@@ -11,18 +11,6 @@ class MoviePolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the movie.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Movie  $movie
-     * @return mixed
-     */
-    public function view(User $user, Movie $movie)
-    {
-        return !$user ? false : true;
-    }
-
-    /**
      * Determine whether the user can create movies.
      *
      * @param  \App\User  $user

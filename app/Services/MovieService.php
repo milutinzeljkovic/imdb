@@ -21,7 +21,7 @@ class MovieService implements IMovieService
     public function updateMovie($movie,$values)
     {
         $movie->update($values);
-        return Movie::where('user_id', Auth::id())->where('id',$movie->id)->get();
+        return $movie;
     }
 
 }
