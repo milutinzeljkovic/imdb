@@ -24,4 +24,12 @@ Route::group([
     Route::post('register', 'Auth\RegisterController@create');
 });
 
-Route::apiResource('movies', 'Api\MovieController');
+Route::group(['middleware' => ['jwt.verify'],'prefix' => 'movies'], function () {
+    Route::get('', 'Api\MovieController@index');
+    Route::get('{movie}', 'Api\MovieController@show');
+    Route::post('add', 'Api\MovieController@store');
+    Route::put('{movie}','Api\MovieController@update')->middleware('can:update,movie');
+    Route::delete('{movie}', 'Api\MovieController@destroy')->middleware('can:delete,movie');
+
+});
+
