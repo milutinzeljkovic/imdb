@@ -5,10 +5,20 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Movie;
+use App\Http\Requests\MovieStoreRequest;
+
 use App;
+use App\Services\IMovieService;
 
 class MovieController extends Controller
 {
+    private $_movieService;
+
+    public function __construct(IMovieService $movieService)
+    {
+        $this->_movieService = $movieService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -25,9 +35,10 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MovieStoreRequest $request)
     {
-        //
+        $movie = Movie::create($request->validated());
+        return $movie;
     }
 
     /**
@@ -36,9 +47,9 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Movie $movie)
     {
-        
+        return $movie;
     }
 
     /**
