@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Movie;
+use App;
 
 class MovieController extends Controller
 {
@@ -15,7 +16,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return Movie::all();
+        return Movie::paginate(10);
     }
 
     /**
@@ -37,7 +38,7 @@ class MovieController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**

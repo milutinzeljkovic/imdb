@@ -1,0 +1,16 @@
+version: '3'
+services:
+  imdbdb:
+    image: mariadb:10.2
+    container_name: imdb-db
+    environment:
+      MYSQL_DATABASE: imdb
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadbdata:/var/lib/mysql
+volumes:
+  mariadbdata:
