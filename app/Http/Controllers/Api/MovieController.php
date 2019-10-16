@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Movie;
 use App\Http\Requests\MovieStoreRequest;
-
+use DB;
 use App;
 use App\Services\IMovieService;
 
@@ -24,9 +24,19 @@ class MovieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Movie::paginate(10);
+        $genre = $request->query('genre');
+        $queryBuilder = Movie::query()
+            ->with('genre');
+        if ($genre != null )
+        {
+            $queryBuilder->whereHas('genre', function ($query) use ($genre) {
+                $query->where('name', 'like', '%'.$genre.'%');
+            })->toSql();;
+        }
+        
+        return $queryBuilder->get();
     }
 
     /**

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,6 +29,9 @@ Route::group(['middleware' => ['jwt.verify'],'prefix' => 'movies'], function () 
     Route::post('add', 'Api\MovieController@store');
     Route::put('{movie}','Api\MovieController@update')->middleware('can:update,movie');
     Route::delete('{movie}', 'Api\MovieController@destroy')->middleware('can:delete,movie');
+});
 
+Route::group(['middleware' => ['jwt.verify'],'prefix' => 'genres'], function () {
+    Route::get('', 'GenreController@index');
 });
 
