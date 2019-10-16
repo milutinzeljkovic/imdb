@@ -12,9 +12,9 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
 
 
-    public function likes()
+    public function reactions()
     {
-        return $this->hasMany('App\Likes', 'user_id', 'id');
+        return $this->hasMany('App\Reaction', 'user_id', 'id');
     }
 
     /**

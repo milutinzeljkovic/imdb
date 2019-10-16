@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AlterLikesTable extends Migration
+class AlterReactionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AlterLikesTable extends Migration
      */
     public function up()
     {
-        Schema::table('likes', function (Blueprint $table) {
-            $table->unique(['user_id','movie_id']);
+        Schema::table('reactions', function (Blueprint $table) {
+            $table->bigIncrements('id')->change();
         });
     }
 
@@ -25,8 +25,8 @@ class AlterLikesTable extends Migration
      */
     public function down()
     {
-        Schema::table('likes', function (Blueprint $table) {
-            $table->dropUnique(['user_id','movie_id']);
+        Schema::table('reactions', function (Blueprint $table) {
+            $table->increments('id')->change();
         });
     }
 }

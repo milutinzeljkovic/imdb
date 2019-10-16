@@ -28,7 +28,7 @@ class MovieController extends Controller
     {
         $genre = $request->query('genre');
         $queryBuilder = Movie::query()
-            ->with('genre')->with('likes');
+            ->with('genre')->with('reactions');
         if ($genre != null )
         {
             $queryBuilder->whereHas('genre', function ($query) use ($genre) {

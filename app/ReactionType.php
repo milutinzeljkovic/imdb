@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class ReactionType extends Model
 {
-    public function likes()
+    public function reactions()
     {
-        return $this->hasMany('App\Likes', 'reaction', 'id');
+        return $this->hasMany('App\Reaction', 'reaction', 'id');
     }
 
 }
