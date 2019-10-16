@@ -35,3 +35,8 @@ Route::group(['middleware' => ['jwt.verify'],'prefix' => 'genres'], function () 
     Route::get('', 'GenreController@index');
 });
 
+Route::group(['middleware' => ['jwt.verify'],'prefix' => 'likes'], function () {
+    Route::get('', 'LikeController@index');
+    Route::post('', 'LikeController@storeReaction');
+
+});

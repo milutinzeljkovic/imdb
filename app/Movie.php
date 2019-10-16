@@ -12,4 +12,10 @@ class Movie extends Model
     {
         return $this->belongsTo(Genre::class);
     }
+
+    public function likes()
+    {
+        return $this->hasMany('App\Like', 'movie_id', 'id');
+    }
+
 }

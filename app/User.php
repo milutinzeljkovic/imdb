@@ -11,6 +11,12 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+
+    public function likes()
+    {
+        return $this->hasMany('App\Likes', 'user_id', 'id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
