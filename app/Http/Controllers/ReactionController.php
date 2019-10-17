@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MovieReactionRequest;
-use Illuminate\Support\Facades\Auth;
+use DB;
 
 use App\Reaction;
 use App\Movie;
 use App\ReactionType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class ReactionController extends Controller
 {
@@ -19,26 +21,42 @@ class ReactionController extends Controller
 
     public function storeReaction(MovieReactionRequest $request)
     {
-       return Reaction::updateOrCreate(
+        $reaction = Reaction::updateOrCreate(
            array_merge(
                 ['movie_id' => $request->validated()['movie_id']],
                 ['user_id' => Auth::id()]),
                 ['reaction' => $request->validated()['reaction_id']]
             );
+        
+        $movieId = $request->validated()['movie_id'];
+        $reactions = Movie::find($movieId)->reactions->groupBy(function ($reaction) {
+            return $reaction->reaction;
+        });
+        return $reactions;
     }
 
     public function getReactionCount(Request $request)
     {
-        $reactionId = $request->query('reaction');
         $movieId = $request->query('movie');
 
-        $count = Reaction::query()->where('reaction', 'like', '%'.$reactionId.'%')
-            ->where('movie_id', 'like', '%'.$movieId.'%')
-            ->groupBy('movie_id')->count();
-        
-        return $count;
+        $types = ReactionType::all();
+
+        $reactions = Movie::find($movieId)->reactions->groupBy(function ($reaction) {
+            return $reaction->reaction;
+        });
+        return $reactions;
+       /* return $types->map(function($type) use ($reactions) {
+            return [$type->reaction_name => $reactions[(string)($type->id)]];
+        });*/
+
     }
 
+    public function getMyReaction(Request $request)
+    {
+        $movieId = $request->query('movie');
+        return Reaction::where('movie_id', $movieId)
+        ->where('user_id', Auth::id())->get();
+    }
 
 
 
