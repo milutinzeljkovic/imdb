@@ -26,4 +26,20 @@ class ReactionController extends Controller
                 ['reaction' => $request->validated()['reaction_id']]
             );
     }
+
+    public function getReactionCount(Request $request)
+    {
+        $reactionId = $request->query('reaction');
+        $movieId = $request->query('movie');
+
+        $count = Reaction::query()->where('reaction', 'like', '%'.$reactionId.'%')
+            ->where('movie_id', 'like', '%'.$movieId.'%')
+            ->groupBy('movie_id')->count();
+        
+        return $count;
+    }
+
+
+
+
 }

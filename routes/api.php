@@ -38,5 +38,6 @@ Route::group(['middleware' => ['jwt.verify'],'prefix' => 'genres'], function () 
 Route::group(['middleware' => ['jwt.verify'],'prefix' => 'likes'], function () {
     Route::get('', 'ReactionController@index');
     Route::post('', 'ReactionController@storeReaction');
+    Route::get('/count','ReactionController@getReactionCount');
 
 });
