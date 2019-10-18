@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Movie;
+use App\Reaction;
 use App\Http\Requests\MovieStoreRequest;
 use DB;
 use App;
@@ -28,7 +29,9 @@ class MovieController extends Controller
     {
         $genre = $request->query('genre');
         $queryBuilder = Movie::query()
-            ->with('genre');
+            ->with('genre')->with('reactions');
+
+
         if ($genre != null )
         {
             $queryBuilder->whereHas('genre', function ($query) use ($genre) {
@@ -57,9 +60,10 @@ class MovieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Movie $movie)
+    public function show($movie)
     {
-        return $movie;
+       return Movie::where('id',$movie)
+            ->with('genre')->with('reactions')->get();
     }
 
     /**

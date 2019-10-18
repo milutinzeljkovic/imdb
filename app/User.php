@@ -11,6 +11,12 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+
+    public function reactions()
+    {
+        return $this->hasMany('App\Reaction', 'user_id', 'id');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
