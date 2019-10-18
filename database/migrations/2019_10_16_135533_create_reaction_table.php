@@ -20,7 +20,6 @@ class CreateReactionTable extends Migration
             $table->unsignedInteger('reaction');
             $table->foreign('reaction')->references('id')->on('reaction_types');
             $table->unique(['user_id','movie_id','reaction']);
-
         });
     }
 

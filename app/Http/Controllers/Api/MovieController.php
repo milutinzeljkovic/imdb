@@ -28,15 +28,21 @@ class MovieController extends Controller
     public function index(Request $request)
     {
         $genre = $request->query('genre');
+        $title = $request->query('title');
         $queryBuilder = Movie::query()
             ->with('genre')->with('reactions');
-
 
         if ($genre != null )
         {
             $queryBuilder->whereHas('genre', function ($query) use ($genre) {
                 $query->where('name', 'like', '%'.$genre.'%');
-            })->toSql();;
+            })->toSql();
+        }
+
+        if($title != null)
+        {
+            $queryBuilder->where('title', 'like', '%'.$title.'%')
+            ->toSql();
         }
         
         return $queryBuilder->get();
